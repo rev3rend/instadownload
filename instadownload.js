@@ -1,3 +1,12 @@
+// instadownload.js
+//
+// grabs instagram images and metadata within a date range with a specific tag
+//
+// r. luke dubois
+// nyu tandon school of engineering
+// dubois@nyu.edu
+// 6.15
+
 process.setMaxListeners(0); // set max throttle
 
 // libraries
