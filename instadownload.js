@@ -17,9 +17,9 @@ var mkdirp = require('mkdirp');
 var bn = require('bignumber.js');
 var utf8 = require('utf8');
 
-var searchterm = 'guitar'; // what are you searching for?
-//var searchterm = 'غروب'; // what are you searching for?
-//var searchterm = '일몰';
+var searchTerm = 'guitar'; // what are you searching for?
+//var searchTerm = 'غروب'; // what are you searching for?
+//var searchTerm = '일몰';
 
 var mt; // max tag for recursion
 
@@ -109,10 +109,10 @@ function printID()
   console.log("start ID: " + absminID);
   console.log("end ID: " + absmaxID);
 
-  mkdirp('./'+searchterm, function(err) { 
+  mkdirp('./'+searchTerm, function(err) { 
     // path was created unless there was error
   });
-  mkdirp('./'+searchterm+'_meta', function(err) { 
+  mkdirp('./'+searchTerm+'_meta', function(err) { 
     // path was created unless there was error
   });
   mt = new bn(absmaxID);
@@ -120,7 +120,7 @@ function printID()
 }
 
 // getIG()) - start searching instagram based on
-// absmaxID and absminID and the search term ('searchterm').
+// absmaxID and absminID and the search term ('searchTerm').
 //
 // it will paginate through automatically, downloading all images
 // that fit between startDate and endDate.
@@ -132,7 +132,7 @@ function printID()
 function getIG()
 {
   ig.tags.recent({
-    name: utf8.encode(searchterm), // term to search
+    name: utf8.encode(searchTerm), // term to search
     count: 100, // 100 images per page
     max_tag_id: mt.toString(), // starting ID (based on the bangkok mall)
     complete: function(data, pagination){
@@ -179,7 +179,7 @@ function downloadImage(_url, _fn)
         //console.log(_url);
         var request = https.get(_url, function(response) {
           if (response.statusCode === 200) {
-            var file = fs.createWriteStream("./"+searchterm+"/"+_fn);
+            var file = fs.createWriteStream("./"+searchTerm+"/"+_fn);
             response.pipe(file);
           }
           // Add timeout.
@@ -194,7 +194,7 @@ function writeMeta(_mt)
   // write file:
   var thestuff = JSON.stringify(metadata, null, '\t');
   // write to the output file in the 'subs' folder:
-  var outfile = "./"+searchterm+'_meta/'+mt+'_meta.json';
+  var outfile = "./"+searchTerm+'_meta/'+mt+'_meta.json';
   console.log("writing to... " + outfile);
   fs.writeFile(outfile, thestuff, function (err) {
   //error handling
